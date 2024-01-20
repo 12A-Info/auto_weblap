@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="hu">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        <link
+            rel="stylesheet"
+            href="../css/stilus.css"
+        />
+        <title>Autók egyedi oldal</title>
+    </head>
+    <body>
+        <a href="/">Vissza a főoldalra</a>
+        <div class="egyedi-container">
+            <h1><%= dudu[0].marka %></h1>
+            <h2>Típus: <%= dudu[0].tipus %></h2>
+            <h3>Ár: <span><%= dudu[0].ar %></span> Ft</h3>
+            <img
+                src="../images/<%= dudu[0].kep %>"
+                alt="<%= dudu[0].kep %>"
+                title="<%= dudu[0].tipus %>"
+            />
+            <div class="gombok">
+                <a href="/modosit/<%= dudu[0].id %>">Módosít</a>
+                <a href="/torol/<%= dudu[0].id %>">Töröl</a>
+            </div>
+        </div>
+    </body>
+</html>

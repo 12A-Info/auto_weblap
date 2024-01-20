@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+* {
+    /* border: 1px solid black; */
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    padding: 1em;
+}
+
+.urlap {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+.urlap select {
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1em;
+    letter-spacing: 1.5px;
+}
+
+input[type='submit'] {
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1em;
+    letter-spacing: 1.5px;
+    padding: 0.5em;
+}
+
+h1,
+h2,
+h3 {
+    text-align: center;
+    letter-spacing: 1px;
+    margin: 1em;
+}
+
+a {
+    color: blue;
+    font-size: larger;
+    letter-spacing: 1px;
+    text-decoration: none;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    margin: auto;
+    width: 80%;
+}
+
+.grid-container p {
+    letter-spacing: 0.5px;
+}
+
+.grid-elem {
+    padding: 1em;
+}
+
+.kep {
+    /* height: 100%; */
+    padding: 5px;
+    width: 100%;
+}
+
+.kep img {
+    height: 90%;
+    width: 90%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    row-gap: 1em;
+    width: 50%;
+}
+
+input[type='text'],
+input[type='number'] {
+    font-size: 2em;
+}
+
+button {
+    font-size: 2em;
+    padding: 1em;
+}
+
+.egyedi-container {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 60%;
+}
+
+.egyedi-container img {
+    display: inline-block;
+    margin: auto;
+    width: 80%;
+}
+
+.gombok {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1em;
+}
+
+.gombok > a {
+    font-size: 1.5em;
+    margin-right: 2em;
+}

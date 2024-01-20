@@ -1,0 +1,5 @@
+# Nem szükséges feltölteni. Indítás előtt: npm install
+node_modules
+
+# Érzékeny adatok tárolására.
+.env
