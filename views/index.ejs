@@ -1,63 +1,47 @@
-<!DOCTYPE html>
-<html lang="hu">
-    <head>
-        <meta charset="UTF-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
+<%- include('partials/header_01.ejs') -%>
+<div class="navbar">
+    <a href="/feltolt">Autó feltölt</a>
+    <div class="rendezes">
+        <button onclick="novel()">Ár szerint növekvő</button>
+        <button onclick="csokken()">Ár szerint csökkenő</button>
+    </div>
+    <div class="urlap">
+        <label for="cars">Válassz egy autótípust:</label>
+        <select id="cars">
+            <option value=""></option>
+            <option value="Ferrari">Ferrari</option>
+            <option value="Maserati">Maserati</option>
+            <option value="McLAREN">McLAREN</option>
+            <option value="Koenigsegg">Koenigsegg</option>
+            <option value="Lamborghini">Lamborghini</option>
+        </select>
+        <input
+            type="submit"
+            value="Szűrés"
+            onclick="szures(event)"
         />
-        <link
-            rel="stylesheet"
-            href="./css/stilus.css"
-        />
-        <title>Autók főoldal</title>
-    </head>
-    <body>
-        <div class="navbar">
-            <a href="/feltolt">Autó feltölt</a>
-            <div class="rendezes">
-                <button onclick="novel()">Ár szerint növekvő</button>
-                <button onclick="csokken()">Ár szerint csökkenő</button>
-            </div>
-            <div class="urlap">
-                <label for="cars">Válassz egy autótípust:</label>
-                <select id="cars">
-                    <option value=""></option>
-                    <option value="Ferrari">Ferrari</option>
-                    <option value="Maserati">Maserati</option>
-                    <option value="McLAREN">McLAREN</option>
-                    <option value="Koenigsegg">Koenigsegg</option>
-                    <option value="Lamborghini">Lamborghini</option>
-                </select>
-                <input
-                    type="submit"
-                    value="Szűrés"
-                    onclick="szures(event)"
-                />
-            </div>
+    </div>
+</div>
+<% if (ures) { %>
+<h1>Versenyautók</h1>
+<% } else { %>
+<h1><%= marka %></h1>
+<% } %>
+<div class="grid-container">
+    <% duduk.forEach(elem => { %>
+    <div class="grid-elem">
+        <p>Márka: <%= elem.marka %></p>
+        <p>Típus: <%= elem.tipus %></p>
+        <p>Ár: <%= elem.ar.toLocaleString("de-DE") %> Ft</p>
+        <div class="kep">
+            <img
+                src="./images/<%= elem.kep %>"
+                title="<%= elem.tipus %>"
+                alt="<%= elem.tipus %>"
+            />
         </div>
-        <% if (ures) { %>
-        <h1>Versenyautók</h1>
-        <% } else { %>
-        <h1><%= marka %></h1>
-        <% } %>
-        <div class="grid-container">
-            <% duduk.forEach(elem => { %>
-            <div class="grid-elem">
-                <p>Márka: <%= elem.marka %></p>
-                <p>Típus: <%= elem.tipus %></p>
-                <p>Ár: <%= elem.ar %> Ft</p>
-                <div class="kep">
-                    <img
-                        src="./images/<%= elem.kep %>"
-                        title="<%= elem.tipus %>"
-                        alt="<%= elem.tipus %>"
-                    />
-                </div>
-                <a href="/egyedi/<%= elem.id %>">Közelebbről</a>
-            </div>
-            <% }) %>
-        </div>
-        <script src="./js/autokezeles.js"></script>
-    </body>
-</html>
+        <a href="/egyedi/<%= elem.id %>">Közelebbről</a>
+    </div>
+    <% }) %>
+</div>
+<%- include('partials/footer.ejs') -%>

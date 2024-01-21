@@ -1,42 +1,27 @@
-<!DOCTYPE html>
-<html lang="hu">
-    <head>
-        <meta charset="UTF-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
-        />
-        <link
-            rel="stylesheet"
-            href="./css/stilus.css"
-        />
-        <title>Autók feltöltés</title>
-    </head>
-    <body>
-        <a href="/">Vissza a főoldalra</a>
-        <form>
-            <label for="marka">Márka: </label>
-            <input
-                type="text"
-                id="marka"
-            />
-            <label for="tipus">Típus: </label>
-            <input
-                type="text"
-                id="tipus"
-            />
-            <label for="ar">Ár: </label>
-            <input
-                type="number"
-                id="ar"
-            />
-            <label for="kep">Kép:</label>
-            <input
-                type="text"
-                id="kep"
-            />
-            <button onclick="feltolt(event)">Feltöltés</button>
-        </form>
-        <script src="./js/autokezeles.js"></script>
-    </body>
-</html>
+<%- include('partials/header_01.ejs') -%>
+<a href="/">Vissza a főoldalra</a>
+<form>
+    <label for="marka">Márka: </label>
+    <input
+        type="text"
+        id="marka"
+    />
+    <label for="tipus">Típus: </label>
+    <input
+        type="text"
+        id="tipus"
+    />
+    <label for="ar">Ár: </label>
+    <input
+        type="number"
+        id="ar"
+    />
+    <label for="kep">Kép:</label>
+    <input
+        type="text"
+        id="kep"
+    />
+    <button onclick="feltolt(event)">Feltöltés</button>
+</form>
+<script src="./js/autokezeles.js"></script>
+<%- include('partials/footer.ejs') -%>

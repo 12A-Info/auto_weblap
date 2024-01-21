@@ -75,9 +75,12 @@ app.get('/', async (req, res) => {
                 autok = await connection.query('SELECT * FROM duduk');
             }
         }
-        return res
-            .status(200)
-            .render('index', { duduk: autok[0], ures: ures, marka: marka });
+        return res.status(200).render('index', {
+            duduk: autok[0],
+            ures: ures,
+            marka: marka,
+            title: 'Autók főoldal',
+        });
     } catch (error) {
         return res.status(500).json({ msg: error.message });
     }
@@ -94,7 +97,10 @@ app.get('/egyedi/:id', async (req, res) => {
         `,
             [parseInt(id)]
         );
-        return res.status(200).render('egyedi.ejs', { dudu: lekertAuto[0] });
+        return res.status(200).render('egyedi.ejs', {
+            dudu: lekertAuto[0],
+            title: 'Egyedi autó',
+        });
     } catch (error) {
         return res.status(500).json({ msg: error.message });
     }
@@ -130,7 +136,10 @@ app.get('/modosit/:id', async (req, res) => {
         );
         return res
             .status(200)
-            .render('modosit.ejs', { dudu: modositottAuto[0] });
+            .render('modosit.ejs', {
+                dudu: modositottAuto[0],
+                title: 'Autó módosítása',
+            });
     } catch (error) {
         return res.status(500).json({ msg: error.message });
     }
@@ -156,7 +165,9 @@ app.post('/modosit', async (req, res) => {
 // feltolt-route kezelése.
 app.get('/feltolt', async (req, res) => {
     try {
-        return res.status(200).render('feltolt.ejs');
+        return res
+            .status(200)
+            .render('feltolt.ejs', { title: 'Új autó feltöltése' });
     } catch (error) {
         return res.status(500).json({ msg: error.message });
     }
