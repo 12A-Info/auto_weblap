@@ -7,6 +7,11 @@ async function feltolt(e) {
     const ar = document.getElementById('ar').value;
     const kep = document.getElementById('kep').value;
 
+    if (!marka || !tipus || !ar || !kep) {
+        window.alert('Minden mező kitöltése kötelező!');
+        return;
+    }
+
     const result = await fetch('/feltolt', {
         method: 'POST',
         headers: {
@@ -30,6 +35,11 @@ async function modosit(e) {
     const tipus = document.getElementById('tipus').value;
     const ar = document.getElementById('ar').value;
     const kep = document.getElementById('kep').value;
+
+    if (!azon || !marka || !tipus || !ar || !kep) {
+        window.alert('Minden mező kitöltése kötelező!');
+        return;
+    }
 
     const result = await fetch('/modosit', {
         method: 'POST',
