@@ -28,20 +28,53 @@ app.use(express.urlencoded({ extended: false }));
 // root-route kezelése.
 app.get('/', async (req, res) => {
     try {
-        const { marka } = req.query;
+        const { marka, sort } = req.query;
+        console.log(marka, sort);
         let ures = true;
         let autok = null;
         if (marka) {
-            autok = await connection.query(
-                `
-        SELECT * FROM duduk 
-        WHERE marka = ?
-        `,
-                [marka]
-            );
-            ures = false;
+            if (sort === 'asc') {
+                autok = await connection.query(
+                    `
+            SELECT * FROM duduk 
+            WHERE marka = ?
+            ORDER BY ar ASC
+            `,
+                    [marka]
+                );
+                ures = false;
+            } else if (sort === 'desc') {
+                autok = await connection.query(
+                    `
+            SELECT * FROM duduk 
+            WHERE marka = ?
+            ORDER BY ar DESC
+            `,
+                    [marka]
+                );
+                ures = false;
+            } else {
+                autok = await connection.query(
+                    `
+            SELECT * FROM duduk 
+            WHERE marka = ?
+            `,
+                    [marka]
+                );
+                ures = false;
+            }
         } else {
-            autok = await connection.query('SELECT * FROM duduk');
+            if (sort === 'asc') {
+                autok = await connection.query(
+                    'SELECT * FROM duduk ORDER by ar ASC'
+                );
+            } else if (sort === 'desc') {
+                autok = await connection.query(
+                    'SELECT * FROM duduk ORDER by ar DESC'
+                );
+            } else {
+                autok = await connection.query('SELECT * FROM duduk');
+            }
         }
         return res
             .status(200)

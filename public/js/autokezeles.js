@@ -50,11 +50,44 @@ function szures(e) {
     e.preventDefault();
     let cars = document.getElementById('cars');
     let valasztott = cars.value;
-    console.log(valasztott);
 
     if (valasztott === '') {
         window.location = `/`;
     } else {
         window.location = `/?marka=${valasztott}`;
     }
+}
+
+function novel() {
+    let urlCim = window.location.href;
+    console.log(urlCim);
+
+    if (urlCim.endsWith('/')) {
+        urlCim = urlCim + '?sort=asc';
+    } else if (urlCim.endsWith('sort=desc')) {
+        urlCim = urlCim.replace('sort=desc', 'sort=asc');
+    } else if (urlCim.endsWith('sort=asc')) {
+        urlCim;
+    } else {
+        urlCim = urlCim + '&sort=asc';
+    }
+
+    console.log(urlCim);
+    window.location = urlCim;
+}
+
+function csokken() {
+    let urlCim = window.location.href;
+    console.log(urlCim);
+
+    if (urlCim.endsWith('/')) {
+        urlCim = urlCim + '?sort=desc';
+    } else if (urlCim.endsWith('sort=asc')) {
+        urlCim = urlCim.replace('sort=asc', 'sort=desc');
+    } else {
+        urlCim = urlCim + '&sort=desc';
+    }
+
+    console.log(urlCim);
+    window.location = urlCim;
 }
