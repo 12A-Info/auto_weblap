@@ -60,7 +60,6 @@ function szures(e) {
 
 function novel() {
     let urlCim = window.location.href;
-    console.log(urlCim);
 
     if (urlCim.endsWith('/')) {
         urlCim = urlCim + '?sort=asc';
@@ -72,13 +71,11 @@ function novel() {
         urlCim = urlCim + '&sort=asc';
     }
 
-    console.log(urlCim);
     window.location = urlCim;
 }
 
 function csokken() {
     let urlCim = window.location.href;
-    console.log(urlCim);
 
     if (urlCim.endsWith('/')) {
         urlCim = urlCim + '?sort=desc';
@@ -88,6 +85,5 @@ function csokken() {
         urlCim = urlCim + '&sort=desc';
     }
 
-    console.log(urlCim);
     window.location = urlCim;
 }

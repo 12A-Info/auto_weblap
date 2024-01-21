@@ -29,7 +29,6 @@ app.use(express.urlencoded({ extended: false }));
 app.get('/', async (req, res) => {
     try {
         const { marka, sort } = req.query;
-        console.log(marka, sort);
         let ures = true;
         let autok = null;
         if (marka) {
