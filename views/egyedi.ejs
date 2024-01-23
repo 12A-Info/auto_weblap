@@ -1,17 +1,59 @@
 <%- include('partials/header_02.ejs') -%>
 <a href="/">Vissza a főoldalra</a>
 <div class="egyedi-container">
-    <h1><%= dudu[0].marka %></h1>
-    <h2>Típus: <%= dudu[0].tipus %></h2>
-    <h3>Ár: <span><%= dudu[0].ar.toLocaleString("de-DE") %></span> Ft</h3>
-    <img
-        src="../images/<%= dudu[0].kep %>"
-        alt="<%= dudu[0].kep %>"
-        title="<%= dudu[0].tipus %>"
-    />
-    <div class="gombok">
-        <a href="/modosit/<%= dudu[0].id %>">Módosít</a>
-        <a href="/torol/<%= dudu[0].id %>">Töröl</a>
+  <h1><%= dudu[0].marka %></h1>
+  <h2>Típus: <%= dudu[0].tipus %></h2>
+  <h3>Ár: <span><%= dudu[0].ar.toLocaleString("de-DE") %></span> Ft</h3>
+  <div
+    id="carouselExampleInterval"
+    class="carousel slide"
+    data-bs-ride="carousel"
+  >
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="2000">
+        <img
+          src="../images/<%= dudu[0].kep.split('+')[0] %>"
+          class="d-block w-100"
+          alt="..."
+        />
+      </div>
+      <div class="carousel-item" data-bs-interval="2000">
+        <img
+          src="../images/<%= dudu[0].kep.split('+')[1] %>"
+          class="d-block w-100"
+          alt="..."
+        />
+      </div>
+      <div class="carousel-item" data-bs-interval="2000">
+        <img
+          src="../images/<%= dudu[0].kep.split('+')[2] %>"
+          class="d-block w-100"
+          alt="..."
+        />
+      </div>
     </div>
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#carouselExample"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#carouselExample"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <div class="gombok">
+    <a href="/modosit/<%= dudu[0].id %>">Módosít</a>
+    <a href="/torol/<%= dudu[0].id %>">Töröl</a>
+  </div>
 </div>
 <%- include('partials/footer.ejs') -%>

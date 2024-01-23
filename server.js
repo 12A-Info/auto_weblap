@@ -27,169 +27,163 @@ app.use(express.urlencoded({ extended: false }));
 
 // root-route kezelése.
 app.get('/', async (req, res) => {
-    try {
-        const { marka, sort } = req.query;
-        let ures = true;
-        let autok = null;
-        if (marka) {
-            if (sort === 'asc') {
-                autok = await connection.query(
-                    `
+  try {
+    const { marka, sort } = req.query;
+    let ures = true;
+    let autok = null;
+    if (marka) {
+      if (sort === 'asc') {
+        autok = await connection.query(
+          `
             SELECT * FROM duduk 
             WHERE marka = ?
             ORDER BY ar ASC
             `,
-                    [marka]
-                );
-                ures = false;
-            } else if (sort === 'desc') {
-                autok = await connection.query(
-                    `
+          [marka]
+        );
+        ures = false;
+      } else if (sort === 'desc') {
+        autok = await connection.query(
+          `
             SELECT * FROM duduk 
             WHERE marka = ?
             ORDER BY ar DESC
             `,
-                    [marka]
-                );
-                ures = false;
-            } else {
-                autok = await connection.query(
-                    `
+          [marka]
+        );
+        ures = false;
+      } else {
+        autok = await connection.query(
+          `
             SELECT * FROM duduk 
             WHERE marka = ?
             `,
-                    [marka]
-                );
-                ures = false;
-            }
-        } else {
-            if (sort === 'asc') {
-                autok = await connection.query(
-                    'SELECT * FROM duduk ORDER by ar ASC'
-                );
-            } else if (sort === 'desc') {
-                autok = await connection.query(
-                    'SELECT * FROM duduk ORDER by ar DESC'
-                );
-            } else {
-                autok = await connection.query('SELECT * FROM duduk');
-            }
-        }
-        return res.status(200).render('index', {
-            duduk: autok[0],
-            ures: ures,
-            marka: marka,
-            title: 'Autók főoldal',
-        });
-    } catch (error) {
-        return res.status(500).json({ msg: error.message });
+          [marka]
+        );
+        ures = false;
+      }
+    } else {
+      if (sort === 'asc') {
+        autok = await connection.query('SELECT * FROM duduk ORDER by ar ASC');
+      } else if (sort === 'desc') {
+        autok = await connection.query('SELECT * FROM duduk ORDER by ar DESC');
+      } else {
+        autok = await connection.query('SELECT * FROM duduk');
+      }
     }
+    return res.status(200).render('index', {
+      duduk: autok[0],
+      ures: ures,
+      marka: marka,
+      title: 'Autók főoldal',
+    });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
 });
 
 // egyedi-route kezelése.
 app.get('/egyedi/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        const lekertAuto = await connection.query(
-            `
+  try {
+    const { id } = req.params;
+    const lekertAuto = await connection.query(
+      `
         SELECT * FROM duduk 
         WHERE id = ?
         `,
-            [parseInt(id)]
-        );
-        return res.status(200).render('egyedi.ejs', {
-            dudu: lekertAuto[0],
-            title: 'Egyedi autó',
-        });
-    } catch (error) {
-        return res.status(500).json({ msg: error.message });
-    }
+      [parseInt(id)]
+    );
+    return res.status(200).render('egyedi.ejs', {
+      dudu: lekertAuto[0],
+      title: 'Egyedi autó',
+    });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
 });
 
 // torol-route kezelése.
 app.get('/torol/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        const result = await connection.query(
-            `
+  try {
+    const { id } = req.params;
+    const result = await connection.query(
+      `
         DELETE FROM duduk
         WHERE id = ?
         `,
-            [parseInt(id)]
-        );
-        return res.status(302).redirect('/');
-    } catch (error) {
-        return res.status(500).json({ msg: error.message });
-    }
+      [parseInt(id)]
+    );
+    return res.status(302).redirect('/');
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
 });
 
 // modosit-route kezelése.
 app.get('/modosit/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        const modositottAuto = await connection.query(
-            `
+  try {
+    const { id } = req.params;
+    const modositottAuto = await connection.query(
+      `
         SELECT * FROM duduk
         WHERE id = ?
         `,
-            [parseInt(id)]
-        );
-        return res
-            .status(200)
-            .render('modosit.ejs', {
-                dudu: modositottAuto[0],
-                title: 'Autó módosítása',
-            });
-    } catch (error) {
-        return res.status(500).json({ msg: error.message });
-    }
+      [parseInt(id)]
+    );
+    return res.status(200).render('modosit.ejs', {
+      dudu: modositottAuto[0],
+      title: 'Autó módosítása',
+    });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
 });
 
 app.post('/modosit', async (req, res) => {
-    try {
-        const { azon, marka, tipus, ar, kep } = req.body;
-        const modositottAuto = await connection.query(
-            `
+  try {
+    const { azon, marka, tipus, ar, kep1, kep2, kep3 } = req.body;
+    const modositottAuto = await connection.query(
+      `
         UPDATE duduk
         SET marka = ?, tipus = ?, ar = ?, kep = ?
         WHERE id = ?
         `,
-            [marka, tipus, parseInt(ar), kep, parseInt(azon)]
-        );
-        return res.status(201).json({ msg: 'Minden oké!' });
-    } catch (error) {
-        return res.status(500).json({ msg: error.message });
-    }
+      [marka, tipus, parseInt(ar), `${kep1}+${kep2}+${kep3}`, parseInt(azon)]
+    );
+    return res.status(201).json({ msg: 'Minden oké!' });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
 });
 
 // feltolt-route kezelése.
 app.get('/feltolt', async (req, res) => {
-    try {
-        return res
-            .status(200)
-            .render('feltolt.ejs', { title: 'Új autó feltöltése' });
-    } catch (error) {
-        return res.status(500).json({ msg: error.message });
-    }
+  try {
+    return res
+      .status(200)
+      .render('feltolt.ejs', { title: 'Új autó feltöltése' });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
 });
 
 app.post('/feltolt', async (req, res) => {
-    try {
-        const { marka, tipus, ar, kep } = req.body;
-        const feltoltottAuto = await connection.query(
-            `
+  try {
+    const { marka, tipus, ar, kep1, kep2, kep3 } = req.body;
+    const feltoltottAuto = await connection.query(
+      `
         INSERT INTO duduk (marka, tipus, ar, kep)
         VALUE (?, ?, ?, ?)
         `,
-            [marka, tipus, parseInt(ar), kep]
-        );
-        return res.status(201).json({ msg: 'Minden oké!' });
-    } catch (error) {
-        return res.status(500).json({ msg: error.message });
-    }
+      [marka, tipus, parseInt(ar), `${kep1}+${kep2}+${kep3}`]
+    );
+    return res.status(201).json({ msg: 'Minden oké!' });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
 });
 
 // Szerver futtatása.
 app.listen(PORT, () => {
-    console.log(`http://localhost:${PORT}`);
+  console.log(`http://localhost:${PORT}`);
 });
